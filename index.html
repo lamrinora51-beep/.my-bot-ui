@@ -6,84 +6,32 @@
     <title>إعدادات القلعة - Mido Bot</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        :root {
-            --primary-color: #00668b;
-            --bg-color: var(--tg-theme-bg-color, #f0f2f5);
-            --text-color: var(--tg-theme-text-color, #222);
-            --card-bg: var(--tg-theme-secondary-bg-color, #ffffff);
-        }
-        body {
-            font-family: sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0; padding: 15px;
-        }
-        .header { text-align: center; margin-bottom: 20px; }
-        .card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; }
-        input, select {
-            width: 100%; padding: 12px; border-radius: 10px;
-            border: 1px solid #ddd; background: var(--bg-color);
-            color: var(--text-color); box-sizing: border-box;
-        }
-        .btn-save {
-            width: 100%; padding: 15px; border: none; border-radius: 12px;
-            background-color: var(--primary-color);
-            color: white; font-size: 16px; font-weight: bold;
-            cursor: pointer;
-        }
+        body { font-family: sans-serif; background-color: var(--tg-theme-bg-color, #f0f2f5); color: var(--tg-theme-text-color, #222); padding: 15px; }
+        .card { background: var(--tg-theme-secondary-bg-color, #fff); border-radius: 12px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; background: var(--tg-theme-bg-color); color: var(--tg-theme-text-color); }
+        .btn-save { width: 100%; padding: 15px; border: none; border-radius: 10px; background-color: #00668b; color: white; font-weight: bold; font-size: 16px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h2>🏰 إعدادات القلعة</h2>
-        <p>قم بضبط خيارات القلعة وتحديث البيانات</p>
-    </div>
-
     <div class="card">
-        <div class="input-group">
-            <label>مستوى القلعة (Level)</label>
-            <input type="number" id="castle_level" placeholder="مثال: 25">
-        </div>
-        
-        <div class="input-group">
-            <label>إحداثيات القلعة (X, Y)</label>
-            <input type="text" id="coords" placeholder="مثال: 450, 120">
-        </div>
-
-        <div class="input-group">
-            <label>وضع الحماية</label>
-            <select id="shield_mode">
-                <option value="off">إيقاف</option>
-                <option value="8h">درع 8 ساعات</option>
-                <option value="24h">درع 24 ساعة</option>
-            </select>
-        </div>
+        <h3>🏰 إعدادات القلعة</h3>
+        <label>مستوى القلعة:</label>
+        <input type="number" id="lvl" placeholder="مثلاً: 25">
+        <label>الإحداثيات:</label>
+        <input type="text" id="loc" placeholder="X, Y">
+        <button class="btn-save" onclick="saveData()">حفظ وإرسال</button>
     </div>
-
-    <button class="btn-save" onclick="saveSettings()">حفظ التغييرات</button>
 
     <script>
         let tg = window.Telegram.WebApp;
-        tg.expand();
+        tg.expand(); 
 
-        function saveSettings() {
-            let config = {
-                action: "update_castle",
-                level: document.getElementById('castle_level').value,
-                coords: document.getElementById('coords').value,
-                shield: document.getElementById('shield_mode').value
+        function saveData() {
+            let data = {
+                level: document.getElementById('lvl').value,
+                coords: document.getElementById('loc').value
             };
-            
-            // إرسال البيانات للبوت وإغلاق النافذة
-            tg.sendData(JSON.stringify(config));
+            tg.sendData(JSON.stringify(data));
             tg.close();
         }
     </script>
