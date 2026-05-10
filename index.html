@@ -3,36 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>لوحة تحكم البوت | Dashboard</title>
+    
+    <script>
+        (function() {
+            var redirect = sessionStorage.redirect;
+            delete sessionStorage.redirect;
+            if (redirect && redirect != location.href) {
+                history.replaceState(null, null, redirect);
+            }
+        })();
+    </script>
+
     <style>
-        body { font-family: sans-serif; background-color: #121212; color: white; padding: 20px; }
-        .form-group { margin-bottom: 15px; }
-        input { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #1e1e1e; color: white; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #0088cc; border: none; color: white; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        h2 { text-align: center; color: #0088cc; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .status-card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-align: center;
+            border: 1px solid #38bdf8;
+        }
+        .online-dot {
+            height: 12px;
+            width: 12px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 8px;
+        }
+        .btn {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 15px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
-    <h2>🚀 ربط قلعة جديدة</h2>
-    <div class="form-group"><input type="text" id="username" placeholder="اسم المستخدم"></div>
-    <div class="form-group"><input type="email" id="email" placeholder="البريد الإلكتروني"></div>
-    <div class="form-group"><input type="password" id="pass" placeholder="كلمة السر"></div>
-    <div class="form-group"><input type="text" id="game_id" placeholder="ID اللعبة (IG)"></div>
-    <button onclick="sendData()">تفعيل الاشتراك الآن ✅</button>
 
-    <script>
-        let tg = window.Telegram.WebApp;
-        function sendData() {
-            let data = {
-                user: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                pass: document.getElementById('pass').value,
-                id: document.getElementById('game_id').value,
-                date: new Date().toLocaleDateString('ar-DZ')
-            };
-            tg.sendData(JSON.stringify(data));
-            tg.close();
-        }
-    </script>
+    <div class="status-card">
+        <h2>حالة البوت: متصل <span class="online-dot"></span></h2>
+        <p>تم تكوين الملف لمنع أخطاء 404 بنجاح.</p>
+        <a href="https://t.me/Mido_100_bot" class="btn">فتح البوت في تليجرام</a>
+    </div>
+
+    <script src="script.js"></script>
+
 </body>
 </html>
