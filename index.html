@@ -3,35 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>إعدادات القلعة - Mido Bot</title>
+    <title>Mido Control Center</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { font-family: sans-serif; background-color: var(--tg-theme-bg-color, #f0f2f5); color: var(--tg-theme-text-color, #222); padding: 15px; }
-        .card { background: var(--tg-theme-secondary-bg-color, #fff); border-radius: 12px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; background: var(--tg-theme-bg-color); color: var(--tg-theme-text-color); }
-        .btn-save { width: 100%; padding: 15px; border: none; border-radius: 10px; background-color: #00668b; color: white; font-weight: bold; font-size: 16px; cursor: pointer; }
+        body { font-family: sans-serif; background-color: #1a1a1a; color: #ffffff; padding: 20px; text-align: center; }
+        .setup-box { background: #2d2d2d; padding: 20px; border-radius: 15px; border: 2px solid #00668b; margin-top: 10px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #3d3d3d; color: white; font-size: 16px; }
+        .save-btn { width: 100%; padding: 15px; border: none; border-radius: 10px; background-color: #00668b; color: white; font-weight: bold; font-size: 18px; margin-top: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h3>🏰 إعدادات القلعة</h3>
-        <label>مستوى القلعة:</label>
-        <input type="number" id="lvl" placeholder="مثلاً: 25">
-        <label>الإحداثيات:</label>
-        <input type="text" id="loc" placeholder="X, Y">
-        <button class="btn-save" onclick="saveData()">حفظ وإرسال</button>
+    <h2>🏰 لوحة القلعة</h2>
+    <div class="setup-box">
+        <label>مستوى القلعة الحالي:</label>
+        <input type="number" id="castle_lvl" placeholder="اكتب المستوى هنا">
+        
+        <label>إحداثيات الموقع:</label>
+        <input type="text" id="castle_loc" placeholder="مثال: 550:110">
+        
+        <button class="save-btn" onclick="confirmData()">حفظ البيانات الآن</button>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
-        tg.expand(); 
+        tg.expand();
 
-        function saveData() {
-            let data = {
-                level: document.getElementById('lvl').value,
-                coords: document.getElementById('loc').value
+        function confirmData() {
+            let result = {
+                lvl: document.getElementById('castle_lvl').value,
+                loc: document.getElementById('castle_loc').value
             };
-            tg.sendData(JSON.stringify(data));
+            tg.sendData(JSON.stringify(result));
             tg.close();
         }
     </script>
